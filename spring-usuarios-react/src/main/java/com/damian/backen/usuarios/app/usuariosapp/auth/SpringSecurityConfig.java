@@ -34,9 +34,12 @@ public class SpringSecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http)throws Exception {
         return http.authorizeHttpRequests()
-        .requestMatchers(HttpMethod.GET,"/usuarios").permitAll()
+                .requestMatchers(HttpMethod.GET,"/**").permitAll()
+      /*  .requestMatchers(HttpMethod.GET,"/usuarios").permitAll()
         .requestMatchers(HttpMethod.GET, "/usuarios/{id}").hasAnyRole("USER","ADMIN")
         .requestMatchers(HttpMethod.POST, "/usuarios").hasRole("ADMIN")
+
+       */
         /* una forma 
         .requestMatchers(HttpMethod.PUT, "/usuarios/{id}").hasRole("ADMIN")
         .requestMatchers(HttpMethod.DELETE, "/usuarios/{id}").hasRole("ADMIN")
@@ -44,13 +47,18 @@ public class SpringSecurityConfig {
         // otra forma
         .requestMatchers("/usuarios/**").hasRole("ADMIN")
 
-        .anyRequest().authenticated()
-        .and()
-        .addFilter(new JwtAuthenticationFilter(autenticacionConfiguration.getAuthenticationManager()))
-        .addFilter(new JwtValidationFilter(autenticacionConfiguration.getAuthenticationManager()))
-        .csrf(config-> config.disable())
-        .sessionManagement(managet-> managet.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        .build();
+                .requestMatchers("/usuarios/**").hasRole("ADMIN")
+
+                .anyRequest().authenticated()
+
+                .and()
+                .cors().and()
+                .addFilter(new JwtAuthenticationFilter(autenticacionConfiguration.getAuthenticationManager()))
+                .addFilter(new JwtValidationFilter(autenticacionConfiguration.getAuthenticationManager()))
+                .csrf(config-> config.disable())
+                .sessionManagement(managet-> managet.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+
+                .build();
     }
 
     
