@@ -31,4 +31,9 @@ public class ClienteServiceImpl implements ClienteService {
     public void delete(Long id) {
         clienteRepositorio.deleteById(id);
     }
+
+    @Override
+    public List<Cliente> findByNombre(String nombre) {
+        return clienteRepositorio.findByNombreContainingIgnoreCase(nombre);
+    }
 }

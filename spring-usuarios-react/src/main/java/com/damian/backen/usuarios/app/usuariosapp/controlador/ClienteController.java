@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -35,6 +36,14 @@ public class ClienteController {
         Optional<Cliente>optionalCliente = clienteService.findById(id);
         if(optionalCliente.isPresent()){
             return ResponseEntity.ok(optionalCliente.get());
+        }
+        return ResponseEntity.notFound().build();
+    }
+    @GetMapping("/nombre/{nombre}")
+    public ResponseEntity<?>findByNombre(@PathVariable String nombre){
+        List<Cliente> lista = clienteService.findByNombre(nombre);
+        if(lista.size()>0){
+            return ResponseEntity.ok(lista);
         }
         return ResponseEntity.notFound().build();
     }
@@ -75,5 +84,7 @@ public class ClienteController {
         }
         return ResponseEntity.notFound().build();
     }
+
+
 
 }
