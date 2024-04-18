@@ -17,9 +17,10 @@ public class Certificado {
     private Date fecha;
     private String ciudad;
     private String departamento;
-    private String Empresa;
+    private String empresa;
     @ManyToOne
     private Cliente cliente;
+    private Long idCliente;
     private String coprologico;
     private String coproCultivo;
     private String cultivo;

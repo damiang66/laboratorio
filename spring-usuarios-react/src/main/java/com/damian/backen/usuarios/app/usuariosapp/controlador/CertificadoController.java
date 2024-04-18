@@ -40,14 +40,16 @@ public class CertificadoController {
     }
     @PostMapping
     public ResponseEntity<?>save(@Valid @RequestBody Certificado certificado,BindingResult result){
+        System.out.println(certificado);
         return ResponseEntity.status(HttpStatus.CREATED).body(certificadoService.save(certificado));
     }
     @PutMapping("/{id}")
     public ResponseEntity<?>editar(@Valid @RequestBody Certificado certificado,BindingResult result,@PathVariable Long id){
     Optional<Certificado>certificadoOptional = certificadoService.findById(id);
     Certificado certificadoDb = null;
+        System.out.println("entre en el put");
     if(certificadoOptional.isPresent()){
-        // falta agregar mas campos para editar
+        // falta agregar mas campos para editars
         certificadoDb = certificadoOptional.get();
         certificadoDb.setCertificadoNumero(certificado.getCertificadoNumero());
         certificadoDb.setFecha(certificado.getFecha());
