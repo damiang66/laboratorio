@@ -1,6 +1,7 @@
 package com.damian.backen.usuarios.app.usuariosapp.service;
 
 import com.damian.backen.usuarios.app.usuariosapp.endidad.Certificado;
+import com.damian.backen.usuarios.app.usuariosapp.endidad.Cliente;
 import com.damian.backen.usuarios.app.usuariosapp.repositorio.CertificadoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,8 @@ import java.util.Optional;
 public class CertificadoServiceImp implements CertificadoService{
     @Autowired
     private CertificadoRepositorio certificadoRepositorio;
+    @Autowired
+    private ClienteService clienteService;
     @Override
     public List<Certificado> findAll() {
         return certificadoRepositorio.findAll();
@@ -23,6 +26,11 @@ public class CertificadoServiceImp implements CertificadoService{
 
     @Override
     public Certificado save(Certificado certificado) {
+        Cliente cliente = null;
+        Optional<Cliente>optionalCliente = clienteService.findById(certificado.getIdCliente());
+        cliente = optionalCliente.get();
+        certificado.setCliente(cliente);
+
         return certificadoRepositorio.save(certificado);
     }
 
