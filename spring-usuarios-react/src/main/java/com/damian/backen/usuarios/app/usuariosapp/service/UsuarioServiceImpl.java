@@ -66,4 +66,9 @@ public class UsuarioServiceImpl implements UsuarioService {
       repositorio.deleteById(id);
    }
 
+   @Override
+   public Optional<Usuario> findByNombre(String nombre) {
+      return repositorio.findByUsername(nombre);
+   }
+
 }

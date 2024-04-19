@@ -11,4 +11,5 @@ public interface UsuarioService {
     public Optional<UsuarioDto>findById(Long id);
     public UsuarioDto save (Usuario usuario);
     public void delete(Long id);
+    public Optional<Usuario>findByNombre(String nombre);
 }

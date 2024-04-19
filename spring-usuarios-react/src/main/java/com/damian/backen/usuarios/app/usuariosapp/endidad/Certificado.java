@@ -20,6 +20,8 @@ public class Certificado {
     private String empresa;
     @ManyToOne
     private Cliente cliente;
+
+    private Long usuario;
     private Long idCliente;
     private String coprologico;
     private String coproCultivo;

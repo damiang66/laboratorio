@@ -88,6 +88,11 @@ public class UsuarioControler {
         }
         return ResponseEntity.notFound().build(); //404
     }
+    @GetMapping("/nombre/{nombre}")
+    public ResponseEntity<?>buscarPorNombre(@PathVariable String nombre){
+        return ResponseEntity.ok(service.findByNombre(nombre));
+    }
+
 
     
 }
