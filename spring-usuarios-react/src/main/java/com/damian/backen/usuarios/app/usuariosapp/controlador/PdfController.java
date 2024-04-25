@@ -181,13 +181,56 @@ private CertificadoService certificadoService;
                         .setFixedPosition(85, 245, 100)
                 );
             }
+            if (certificado.getConcepto().equals("Apto con restriccion que no interfieren en la labor")){
+                document.add(new Paragraph("x")
+                        .setTextAlignment(TextAlignment.LEFT)
+                        .setFixedPosition(85, 234, 100)
+                );
+            }
+            if (certificado.getConcepto().equals("Apto para trabajar en alturas")){
+                document.add(new Paragraph("x")
+                        .setTextAlignment(TextAlignment.LEFT)
+                        .setFixedPosition(85, 223, 100)
+                );
+            }
+            if (certificado.getConcepto().equals("Apto para manipulacion de alimentos")){
+                document.add(new Paragraph("x")
+                        .setTextAlignment(TextAlignment.LEFT)
+                        .setFixedPosition(85, 211, 100)
+                );
+            }
+
+
+
+
+            // del lado derecho
+
             if (certificado.getConcepto().equals("Examen de retiro satisfactorio")){
                 document.add(new Paragraph("x")
                         .setTextAlignment(TextAlignment.LEFT)
                         .setFixedPosition(325, 245, 100)
                 );
             }
-            // agregar los if que faltan
+            if (certificado.getConcepto().equals("Examen de retiro no satisfactorio")){
+                document.add(new Paragraph("x")
+                        .setTextAlignment(TextAlignment.LEFT)
+                        .setFixedPosition(325, 234, 100)
+                );
+            }
+            if (certificado.getConcepto().equals("Apto con restriccion que no interfieren en la labor 1")){
+                document.add(new Paragraph("x")
+                        .setTextAlignment(TextAlignment.LEFT)
+                        .setFixedPosition(325, 223, 100)
+                );
+            }
+            if (certificado.getConcepto().equals("Aplazado")){
+                document.add(new Paragraph("x")
+                        .setTextAlignment(TextAlignment.LEFT)
+                        .setFixedPosition(325, 211, 100)
+                );
+            }
+
+
 
 
             document.close();
