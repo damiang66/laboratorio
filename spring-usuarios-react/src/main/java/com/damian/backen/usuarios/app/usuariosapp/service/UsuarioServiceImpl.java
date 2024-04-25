@@ -52,9 +52,13 @@ public class UsuarioServiceImpl implements UsuarioService {
       String passwordBc = passwordEncoder.encode(usuario.getPassword());
       usuario.setPassword(passwordBc);
       Optional<Rol> o = rolRepositio.findByNombre("ROLE_USER");
+      Optional<Rol> admin = rolRepositio.findByNombre("ROLE_ADMIN");
       List<Rol> roles = new ArrayList();
       if (o.isPresent()) {
          roles.add(o.get());
+      }
+      if (admin.isPresent()){
+         roles.add(admin.get());
       }
       usuario.setRoles(roles);
 
