@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Optional;
 
 
-
+import com.damian.backen.usuarios.app.usuariosapp.endidad.Rol;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
@@ -61,6 +61,7 @@ public class UsuarioControler {
         if(result.hasErrors()){
             return this.validar(result);
         }
+
         return ResponseEntity.status(HttpStatus.CREATED).body(service.save(usuario));
     }
     @PutMapping("/{id}")
