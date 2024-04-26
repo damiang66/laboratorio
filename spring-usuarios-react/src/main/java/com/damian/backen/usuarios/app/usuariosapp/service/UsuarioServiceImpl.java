@@ -57,9 +57,12 @@ public class UsuarioServiceImpl implements UsuarioService {
       if (o.isPresent()) {
          roles.add(o.get());
       }
-      if (admin.isPresent()){
-         roles.add(admin.get());
+      if (usuario.getAdmin()){
+         if (admin.isPresent()){
+            roles.add(admin.get());
+         }
       }
+
       usuario.setRoles(roles);
 
       return DtoMapperUsuario.getInstance().setUsuario(repositorio.save(usuario)).build();
