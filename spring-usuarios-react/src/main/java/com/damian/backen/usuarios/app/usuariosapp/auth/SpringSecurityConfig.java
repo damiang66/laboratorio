@@ -35,7 +35,10 @@ public class SpringSecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http)throws Exception {
         return http.authorizeHttpRequests()
                 .requestMatchers(HttpMethod.GET,"/**").permitAll()
-      /*  .requestMatchers(HttpMethod.GET,"/usuarios").permitAll()
+                // Permitir acceso a la generación de PDF para todos
+                .requestMatchers(HttpMethod.GET, "/api/pdf/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/pdf/**").permitAll()
+                /*  .requestMatchers(HttpMethod.GET,"/usuarios").permitAll()
         .requestMatchers(HttpMethod.GET, "/usuarios/{id}").hasAnyRole("USER","ADMIN")
         .requestMatchers(HttpMethod.POST, "/usuarios").hasRole("ADMIN")
 

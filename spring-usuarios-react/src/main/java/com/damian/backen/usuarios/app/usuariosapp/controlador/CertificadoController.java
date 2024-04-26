@@ -53,6 +53,17 @@ public class CertificadoController {
         certificadoDb = certificadoOptional.get();
         certificadoDb.setCertificadoNumero(certificado.getCertificadoNumero());
         certificadoDb.setFecha(certificado.getFecha());
+        certificadoDb.setCiudad(certificado.getCiudad());
+        certificadoDb.setDepartamento(certificado.getDepartamento());
+        certificadoDb.setEmpresa(certificado.getEmpresa());
+        certificadoDb.setCliente(certificado.getCliente());
+        certificadoDb.setIdCliente(certificado.getIdCliente());
+        certificadoDb.setCoprologico(certificado.getCoprologico());
+        certificadoDb.setCoproCultivo(certificado.getCoproCultivo());
+        certificadoDb.setCultivo(certificado.getCultivo());
+        certificadoDb.setKoh(certificado.getKoh());
+        certificadoDb.setDiagnostico(certificado.getDiagnostico());
+        certificadoDb.setConcepto(certificado.getConcepto());
         return ResponseEntity.status(HttpStatus.CREATED).body(certificadoService.save(certificadoDb));
     }
     return  ResponseEntity.notFound().build();
