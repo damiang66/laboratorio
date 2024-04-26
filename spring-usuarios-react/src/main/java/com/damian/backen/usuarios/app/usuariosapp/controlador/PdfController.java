@@ -3,11 +3,8 @@ package com.damian.backen.usuarios.app.usuariosapp.controlador;
 import com.damian.backen.usuarios.app.usuariosapp.endidad.Certificado;
 import com.damian.backen.usuarios.app.usuariosapp.service.CertificadoService;
 import com.damian.backen.usuarios.app.usuariosapp.service.PdfService;
-import com.itextpdf.kernel.pdf.*;
-import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.property.TextAlignment;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -30,10 +27,12 @@ public class PdfController {
 private CertificadoService certificadoService;
     @GetMapping("/generar/{id}")
     public ResponseEntity<?> generarPDF(@PathVariable Long id) {
-       return certificadoCLiente(id);
+
+        return certificadoCLiente(id);
     }
     @GetMapping("/carnet/{id}")
     public ResponseEntity<?> generarPDF1(@PathVariable Long id) {
+
         return carnetCLiente(id);
     }
     @GetMapping("/medico/{id}")

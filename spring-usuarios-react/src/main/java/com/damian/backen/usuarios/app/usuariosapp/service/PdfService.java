@@ -1,6 +1,7 @@
 package com.damian.backen.usuarios.app.usuariosapp.service;
 
 import com.damian.backen.usuarios.app.usuariosapp.endidad.Certificado;
+
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
+
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
