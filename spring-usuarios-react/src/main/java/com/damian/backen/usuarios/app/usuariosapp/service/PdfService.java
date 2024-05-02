@@ -2,6 +2,7 @@ package com.damian.backen.usuarios.app.usuariosapp.service;
 
 import com.damian.backen.usuarios.app.usuariosapp.endidad.Certificado;
 
+
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
+
 
 
 import java.io.ByteArrayOutputStream;
@@ -26,7 +28,7 @@ public class PdfService {
         try {
             Resource resource = resourceLoader.getResource("classpath:1-laboratorio.pdf");
             InputStream inputStream = resource.getInputStream();
-            PdfReader reader = new PdfReader(inputStream);
+            PdfReader   reader = new PdfReader(inputStream);
 
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             PdfWriter writer = new PdfWriter(outputStream);

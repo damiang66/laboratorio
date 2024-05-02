@@ -9,12 +9,7 @@
 		<version>3.0.6</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<repositories>
-		<repository>
-			<id>itext</id>
-			<url>https://repo.itextsupport.com/nexus/content/groups/public/</url>
-		</repository>
-	</repositories>
+
 	<groupId>com.damian.backen.usuarios.app</groupId>
 	<artifactId>usuarios-app</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -42,10 +37,12 @@
 		</dependency>
 		<dependency>
 			<groupId>com.itextpdf</groupId>
-			<artifactId>itext7-core</artifactId>
-			<version>7.0.2</version>
+			<artifactId>itextpdf</artifactId>
+			<version>5.1.3</version>
 		</dependency>
 
+
+		<!-- iText 7 Layout para manipulación de la disposición de los elementos en PDF -->
 		<dependency>
 			<groupId>com.itextpdf</groupId>
 			<artifactId>layout</artifactId>
@@ -115,6 +112,17 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>com.damian.backen.usuarios.app.UsuariosApp</mainClass>
+						</manifest>
+					</archive>
 				</configuration>
 			</plugin>
 		</plugins>
