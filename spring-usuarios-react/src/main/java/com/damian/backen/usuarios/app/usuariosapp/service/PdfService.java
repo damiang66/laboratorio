@@ -19,6 +19,8 @@ import org.springframework.stereotype.Service;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Service
 public class PdfService {
@@ -68,7 +70,13 @@ public class PdfService {
                     .setTextAlignment(TextAlignment.LEFT)
                     .setFixedPosition(360, 610, 100)
             );
-            document.add(new Paragraph(certificado.getFecha().toString())
+            LocalDate desde = LocalDate.parse(certificado.getFecha().toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+
+            // Formatear las fechas
+
+            String fecha = desde.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            document.add(new Paragraph(fecha)
                     .setTextAlignment(TextAlignment.LEFT)
                     .setFixedPosition(110, 590, 100)
             );
@@ -211,9 +219,16 @@ public class PdfService {
                     .setTextAlignment(TextAlignment.LEFT)
                     .setFixedPosition(450, 365, 200)
             );
-            document.add(new Paragraph(certificado.getFecha().toString())
+
+
+
+            // Formatear las fechas
+            LocalDate desde = LocalDate.parse(certificado.getFecha().toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            String fecha = desde.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+            document.add(new Paragraph(fecha)
                     .setTextAlignment(TextAlignment.LEFT)
-                    .setFixedPosition(81, 350, 100)
+                    .setFixedPosition(88, 350, 100)
             );
 
 
