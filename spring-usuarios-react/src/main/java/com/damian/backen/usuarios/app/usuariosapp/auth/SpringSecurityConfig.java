@@ -38,6 +38,7 @@ public class SpringSecurityConfig {
                 // Permitir acceso a la generación de PDF para todos
                 .requestMatchers(HttpMethod.GET, "/api/pdf/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/pdf/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/reportes/generar-pdf/**").permitAll()
                 /*  .requestMatchers(HttpMethod.GET,"/usuarios").permitAll()
         .requestMatchers(HttpMethod.GET, "/usuarios/{id}").hasAnyRole("USER","ADMIN")
         .requestMatchers(HttpMethod.POST, "/usuarios").hasRole("ADMIN")
