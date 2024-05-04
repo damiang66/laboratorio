@@ -4,6 +4,8 @@ import com.damian.backen.usuarios.app.usuariosapp.endidad.Cliente;
 import com.damian.backen.usuarios.app.usuariosapp.service.ClienteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -26,6 +28,11 @@ public class ClienteController {
             errores.put(e.getField(),"El campo: " + e.getField() + " " + e.getDefaultMessage());
         });
         return ResponseEntity.badRequest().body(errores);
+    }
+    @GetMapping("/paginar/{page}")
+    public ResponseEntity<?>paginar(@PathVariable Integer page){
+        Pageable pageable = PageRequest.of(page,7);
+        return ResponseEntity.ok(clienteService.paginar(pageable));
     }
     @GetMapping
     public ResponseEntity<?>findAll(){
