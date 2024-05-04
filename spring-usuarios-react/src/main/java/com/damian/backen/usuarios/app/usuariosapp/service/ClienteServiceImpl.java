@@ -3,6 +3,8 @@ package com.damian.backen.usuarios.app.usuariosapp.service;
 import com.damian.backen.usuarios.app.usuariosapp.endidad.Cliente;
 import com.damian.backen.usuarios.app.usuariosapp.repositorio.ClienteRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +17,11 @@ public class ClienteServiceImpl implements ClienteService {
     @Override
     public List<Cliente> findAll() {
         return clienteRepositorio.findAll();
+    }
+
+    @Override
+    public Page<Cliente> paginar(Pageable pageable) {
+        return clienteRepositorio.findAll(pageable);
     }
 
     @Override

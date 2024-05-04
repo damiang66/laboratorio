@@ -5,6 +5,8 @@ import com.damian.backen.usuarios.app.usuariosapp.endidad.Cliente;
 import com.damian.backen.usuarios.app.usuariosapp.endidad.Usuario;
 import com.damian.backen.usuarios.app.usuariosapp.repositorio.CertificadoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +20,11 @@ public class CertificadoServiceImp implements CertificadoService{
     @Override
     public List<Certificado> findAll() {
         return certificadoRepositorio.findAll();
+    }
+
+    @Override
+    public Page<Certificado> paginar(Pageable pageable) {
+        return certificadoRepositorio.findAll(pageable);
     }
 
     @Override
