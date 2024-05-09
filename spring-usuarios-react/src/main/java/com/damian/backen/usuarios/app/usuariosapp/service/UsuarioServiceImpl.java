@@ -49,10 +49,14 @@ public class UsuarioServiceImpl implements UsuarioService {
 
    @Override
    public UsuarioDto save(Usuario usuario) {
-      String passwordBc = passwordEncoder.encode(usuario.getPassword());
-      usuario.setPassword(passwordBc);
+      if(usuario.getId() == null){
+         String passwordBc = passwordEncoder.encode(usuario.getPassword());
+         usuario.setPassword(passwordBc);
+      }
+
       Optional<Rol> o = rolRepositio.findByNombre("ROLE_USER");
       Optional<Rol> admin = rolRepositio.findByNombre("ROLE_ADMIN");
+      Optional<Rol> copado = rolRepositio.findByNombre("ROLE_COPADO");
       List<Rol> roles = new ArrayList();
       if (o.isPresent()) {
          roles.add(o.get());
@@ -61,6 +65,9 @@ public class UsuarioServiceImpl implements UsuarioService {
          if (admin.isPresent()){
             roles.add(admin.get());
          }
+      }
+      if(usuario.getCopado()){
+         roles.add(copado.get());
       }
 
       usuario.setRoles(roles);

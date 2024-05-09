@@ -36,10 +36,11 @@ public class JpaUserDetailsService implements UserDetailsService {
      .stream()
      . map(rol -> new SimpleGrantedAuthority(rol.getNombre()))
      .collect(Collectors.toList());
-    
-     
-        return new User(usuario.getUsername(),
+
+
+            return new User(usuario.getUsername(),
         usuario.getPassword(),
+
         true,
         true,
         true

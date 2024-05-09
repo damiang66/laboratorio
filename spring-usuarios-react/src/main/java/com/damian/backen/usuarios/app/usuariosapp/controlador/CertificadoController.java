@@ -30,7 +30,7 @@ public class CertificadoController {
     }
     @GetMapping("/paginar/{page}")
     public ResponseEntity<?>paginar(@PathVariable Integer page){
-        Pageable pageable = PageRequest.of(page,7);
+        Pageable pageable = PageRequest.of(page,1);
         return ResponseEntity.ok(certificadoService.paginar(pageable));
     }
     @GetMapping
