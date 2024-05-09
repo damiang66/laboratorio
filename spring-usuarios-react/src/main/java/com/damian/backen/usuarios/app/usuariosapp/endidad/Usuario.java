@@ -29,13 +29,14 @@ public class Usuario {
     @Size(min = 4,max = 8)
     @Column(unique = true)
     private String username;
-    @NotBlank
+   // @NotBlank
     private String password;
     @NotBlank
     @Email
     @Column(unique = true)
     private String email;
     private Boolean admin=false;
+    private Boolean copado = false;
     @ManyToMany
     @JoinTable(name="usuarios_roles",joinColumns =@JoinColumn(name="usuario_id"
     ), inverseJoinColumns = @JoinColumn(name="rol_id"),

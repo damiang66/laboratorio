@@ -66,12 +66,15 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
             Authentication authResult) throws IOException, ServletException {
         String username = ((User) authResult.getPrincipal()).getUsername();
+
         Collection<? extends GrantedAuthority> roles = authResult.getAuthorities();
         boolean isAdmin = roles.stream().anyMatch(r-> r.getAuthority().equals("ROLE_ADMIN"));
+        boolean isCopado = roles.stream().anyMatch(r->r.getAuthority().equals("ROLE_COPADO"));
         Claims claims = Jwts.claims();
         claims.put("authorities", new ObjectMapper().writeValueAsString(roles));
         claims.put("isAdmin", isAdmin);
         claims.put("username", username);
+        claims.put("isCopado",isCopado);
         String token = Jwts.builder()
                 .setClaims(claims)
                 .setSubject(username)

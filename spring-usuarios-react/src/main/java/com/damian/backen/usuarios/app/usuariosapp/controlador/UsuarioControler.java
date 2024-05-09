@@ -65,7 +65,8 @@ public class UsuarioControler {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.save(usuario));
     }
     @PutMapping("/{id}")
-    public ResponseEntity<?>editar(@Valid @RequestBody UsuarioRequest usuario, BindingResult result,@PathVariable Long id){
+    public ResponseEntity<?>editar(@Valid @RequestBody Usuario usuario, BindingResult result,@PathVariable Long id){
+        System.out.println(usuario);
         if (result.hasErrors()){
             return this.validar(result);
         }
@@ -74,6 +75,9 @@ public class UsuarioControler {
             Usuario usuarioDb = r.get();
             usuarioDb.setUsername(usuario.getUsername());
             usuarioDb.setEmail(usuario.getEmail());
+            usuarioDb.setCopado(usuario.getCopado());
+            usuarioDb.setAdmin(usuario.getAdmin());
+
             return ResponseEntity.status(HttpStatus.CREATED).body(service.save(usuarioDb));
         }
         return ResponseEntity.notFound().build();
