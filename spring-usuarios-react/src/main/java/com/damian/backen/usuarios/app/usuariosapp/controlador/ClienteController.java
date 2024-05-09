@@ -31,7 +31,7 @@ public class ClienteController {
     }
     @GetMapping("/paginar/{page}")
     public ResponseEntity<?>paginar(@PathVariable Integer page){
-        Pageable pageable = PageRequest.of(page,7);
+        Pageable pageable = PageRequest.of(page,5);
         return ResponseEntity.ok(clienteService.paginar(pageable));
     }
     @GetMapping

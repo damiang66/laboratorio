@@ -26,7 +26,7 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank
-    @Size(min = 4,max = 8)
+
     @Column(unique = true)
     private String username;
    // @NotBlank
