@@ -70,7 +70,7 @@ public class ReporteController {
 
             // Agregar los usuarios y sus cantidades al PDF
             for (Map.Entry<Long, Integer> entry : usuariosAgrupados.entrySet()) {
-                UsuarioDto usuario = usuarioService.findById(entry.getKey()).orElse(null);
+                Usuario usuario = usuarioService.findById(entry.getKey()).orElse(null);
                 if (usuario != null) {
                     document.add(new Paragraph("Usuario: " + usuario.getUsername() + " - Cantidad de Certificados: " + entry.getValue()));
                 }

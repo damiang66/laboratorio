@@ -38,13 +38,14 @@ public class UsuarioServiceImpl implements UsuarioService {
    }
 
    @Override
-   public Optional<UsuarioDto> findById(Long id) {
+   public Optional<Usuario> findById(Long id) {
+      /*
       return repositorio.findById(id).map(u->DtoMapperUsuario
       .getInstance()
       .setUsuario(u)
       .build());
-      
-
+      */
+return  repositorio.findById(id);
    }
 
    @Override
@@ -73,6 +74,18 @@ public class UsuarioServiceImpl implements UsuarioService {
       usuario.setRoles(roles);
 
       return DtoMapperUsuario.getInstance().setUsuario(repositorio.save(usuario)).build();
+   }
+
+   @Override
+   public Usuario editar(Usuario usuario ,Long id) {
+      System.out.println(usuario);
+      Usuario usuariodb = repositorio.findById(id).get();
+      usuariodb.setUsername(usuario.getUsername());
+      String passwordBc = passwordEncoder.encode(usuario.getPassword());
+      usuariodb.setPassword(passwordBc);
+
+      usuariodb.setEmail(usuario.getEmail());
+      return repositorio.save(usuariodb);
    }
 
    @Override

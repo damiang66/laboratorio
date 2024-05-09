@@ -49,7 +49,7 @@ public class UsuarioControler {
     }
     @GetMapping("/{id}")
     public ResponseEntity<?>findById(@PathVariable Long id){
-        Optional<UsuarioDto> r = service.findById(id);
+        Optional<Usuario> r = service.findById(id);
         if(r.isPresent()){
            return ResponseEntity.ok().body(r.get());
         }
@@ -83,9 +83,14 @@ public class UsuarioControler {
         return ResponseEntity.notFound().build();
 
     }
+    @PutMapping("/editar/{id}")
+    public ResponseEntity<?>editarUsuario(@Valid @RequestBody Usuario usuario, BindingResult result,@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.editar(usuario,id));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
-        Optional<UsuarioDto> r = service.findById(id);
+        Optional<Usuario> r = service.findById(id);
         
         if (r.isPresent()){
             service.delete(id);
