@@ -15,7 +15,6 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
 
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,17 +25,17 @@ import java.time.format.DateTimeFormatter;
 public class PdfService {
     @Autowired
     private ResourceLoader resourceLoader;
+
     public byte[] generarPdf(Certificado certificado) {
         try {
             Resource resource = resourceLoader.getResource("classpath:1-laboratorio.pdf");
             InputStream inputStream = resource.getInputStream();
-            PdfReader   reader = new PdfReader(inputStream);
+            PdfReader reader = new PdfReader(inputStream);
 
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             PdfWriter writer = new PdfWriter(outputStream);
             PdfDocument pdfDocument = new PdfDocument(reader, writer);
             Document document = new Document(pdfDocument);
-
 
 
             document.close();
@@ -47,8 +46,11 @@ public class PdfService {
             return null;
         }
     }
+
     public byte[] generarPdfConDatos(Certificado certificado) {
+        System.out.println(certificado);
         try {
+
             Resource resource = resourceLoader.getResource("classpath:2-laboratorio.pdf");
             InputStream inputStream = resource.getInputStream();
             PdfReader reader = new PdfReader(inputStream);
@@ -57,33 +59,67 @@ public class PdfService {
             PdfWriter writer = new PdfWriter(outputStream);
             PdfDocument pdfDocument = new PdfDocument(reader, writer);
             Document document = new Document(pdfDocument);
+            if (certificado.getCertificadoNumero() == null) {
+                document.add(new Paragraph("-")
+                        .setTextAlignment(TextAlignment.LEFT)
+                        .setFixedPosition(360, 650, 100)); // 36 is the margin-left, 750 is the margin-bottom, 100 is the width
+            } else {
+                document.add(new Paragraph(certificado.getCertificadoNumero())
+                        .setTextAlignment(TextAlignment.LEFT)
+                        .setFixedPosition(360, 650, 100)); // 36 is the margin-left, 750 is the margin-bottom, 100 is the width
+            }
+            if (certificado.getEmpresa() == null) {
+                document.add(new Paragraph("-")
+                        .setTextAlignment(TextAlignment.LEFT)
+                        .setFixedPosition(110, 610, 100)
+                );
+            } else {
+                document.add(new Paragraph(certificado.getEmpresa())
+                        .setTextAlignment(TextAlignment.LEFT)
+                        .setFixedPosition(110, 610, 100)
+                );
+            }
 
-            document.add(new Paragraph(certificado.getCertificadoNumero())
+        if(certificado.getCiudad()==null){
+            document.add(new Paragraph("-")
                     .setTextAlignment(TextAlignment.LEFT)
-                    .setFixedPosition(360, 650, 100)); // 36 is the margin-left, 750 is the margin-bottom, 100 is the width
-
-            document.add(new Paragraph(certificado.getEmpresa())
-                    .setTextAlignment(TextAlignment.LEFT)
-                    .setFixedPosition(110, 610, 100)
+                    .setFixedPosition(360, 610, 100)
             );
+        }else{
             document.add(new Paragraph(certificado.getCiudad())
                     .setTextAlignment(TextAlignment.LEFT)
                     .setFixedPosition(360, 610, 100)
             );
-            LocalDate desde = LocalDate.parse(certificado.getFecha().toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        }
+           if (certificado.getFecha().toString()==null){
+               document.add(new Paragraph("-")
+                       .setTextAlignment(TextAlignment.LEFT)
+                       .setFixedPosition(110, 590, 100)
+               );
+           }else{
+               LocalDate desde = LocalDate.parse(certificado.getFecha().toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
 
-            // Formatear las fechas
+               // Formatear las fechas
 
-            String fecha = desde.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            document.add(new Paragraph(fecha)
-                    .setTextAlignment(TextAlignment.LEFT)
-                    .setFixedPosition(110, 590, 100)
-            );
-            document.add(new Paragraph(certificado.getDepartamento())
-                    .setTextAlignment(TextAlignment.LEFT)
-                    .setFixedPosition(360, 590, 100)
-            );
+               String fecha = desde.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+               document.add(new Paragraph(fecha)
+                       .setTextAlignment(TextAlignment.LEFT)
+                       .setFixedPosition(110, 590, 100)
+               );
+           }
+            if(certificado.getDepartamento()==null){
+                document.add(new Paragraph("-")
+                        .setTextAlignment(TextAlignment.LEFT)
+                        .setFixedPosition(360, 590, 100)
+                );
+            }else{
+                document.add(new Paragraph(certificado.getDepartamento())
+                        .setTextAlignment(TextAlignment.LEFT)
+                        .setFixedPosition(360, 590, 100)
+                );
+            }
+
             document.add(new Paragraph(certificado.getCliente().getNombre().toString())
                     .setTextAlignment(TextAlignment.LEFT)
                     .setFixedPosition(180, 530, 150)
@@ -108,45 +144,83 @@ public class PdfService {
                     .setTextAlignment(TextAlignment.LEFT)
                     .setFixedPosition(415, 480, 100)
             );
-            document.add(new Paragraph(certificado.getCoprologico())
-                    .setTextAlignment(TextAlignment.LEFT)
-                    .setFixedPosition(150, 405, 100)
-            );
-            document.add(new Paragraph(certificado.getCultivo())
-                    .setTextAlignment(TextAlignment.LEFT)
-                    .setFixedPosition(415, 405, 100)
-            );
-            document.add(new Paragraph(certificado.getCoproCultivo())
-                    .setTextAlignment(TextAlignment.LEFT)
-                    .setFixedPosition(150, 385, 100)
-            );
-            document.add(new Paragraph(certificado.getKoh())
-                    .setTextAlignment(TextAlignment.LEFT)
-                    .setFixedPosition(415, 385, 100)
-            );
-            document.add(new Paragraph(certificado.getDiagnostico())
-                    .setTextAlignment(TextAlignment.LEFT)
-                    .setFixedPosition(70, 305, 200)
-            );
-            if (certificado.getConcepto().equals("Apto sin restriccion")){
+            if (certificado.getCoprologico()==null){
+                document.add(new Paragraph("-")
+                        .setTextAlignment(TextAlignment.LEFT)
+                        .setFixedPosition(150, 405, 100)
+                );
+            }else{
+                document.add(new Paragraph(certificado.getCoprologico())
+                        .setTextAlignment(TextAlignment.LEFT)
+                        .setFixedPosition(150, 405, 100)
+                );
+            }
+
+           if(certificado.getCultivo()==null){
+               document.add(new Paragraph("-")
+                       .setTextAlignment(TextAlignment.LEFT)
+                       .setFixedPosition(415, 405, 100)
+               );
+           }else{
+               document.add(new Paragraph(certificado.getCultivo())
+                       .setTextAlignment(TextAlignment.LEFT)
+                       .setFixedPosition(415, 405, 100)
+               );
+           }
+           if(certificado.getCoproCultivo()==null){
+               document.add(new Paragraph("-")
+                       .setTextAlignment(TextAlignment.LEFT)
+                       .setFixedPosition(150, 385, 100)
+               );
+           }else{
+               document.add(new Paragraph(certificado.getCoproCultivo())
+                       .setTextAlignment(TextAlignment.LEFT)
+                       .setFixedPosition(150, 385, 100)
+               );
+           }
+          if(certificado.getKoh()==null){
+              document.add(new Paragraph("-")
+                      .setTextAlignment(TextAlignment.LEFT)
+                      .setFixedPosition(415, 385, 100)
+              );
+          }else{
+              document.add(new Paragraph(certificado.getKoh())
+                      .setTextAlignment(TextAlignment.LEFT)
+                      .setFixedPosition(415, 385, 100)
+              );
+          }
+          if (certificado.getDiagnostico()==null){
+              document.add(new Paragraph("----------")
+                      .setTextAlignment(TextAlignment.LEFT)
+                      .setFixedPosition(70, 305, 200)
+              );
+          }else{
+              document.add(new Paragraph(certificado.getDiagnostico())
+                      .setTextAlignment(TextAlignment.LEFT)
+                      .setFixedPosition(70, 305, 200)
+              );
+          }
+
+
+            if (certificado.getConcepto().equals("Apto sin restriccion")) {
                 document.add(new Paragraph("x")
                         .setTextAlignment(TextAlignment.LEFT)
                         .setFixedPosition(85, 245, 100)
                 );
             }
-            if (certificado.getConcepto().equals("Apto con restriccion que no interfieren en la labor")){
+            if (certificado.getConcepto().equals("Apto con restriccion que no interfieren en la labor")) {
                 document.add(new Paragraph("x")
                         .setTextAlignment(TextAlignment.LEFT)
                         .setFixedPosition(85, 234, 100)
                 );
             }
-            if (certificado.getConcepto().equals("Apto para trabajar en alturas")){
+            if (certificado.getConcepto().equals("Apto para trabajar en alturas")) {
                 document.add(new Paragraph("x")
                         .setTextAlignment(TextAlignment.LEFT)
                         .setFixedPosition(85, 223, 100)
                 );
             }
-            if (certificado.getConcepto().equals("Apto para manipulacion de alimentos")){
+            if (certificado.getConcepto().equals("Apto para manipulacion de alimentos")) {
                 document.add(new Paragraph("x")
                         .setTextAlignment(TextAlignment.LEFT)
                         .setFixedPosition(85, 211, 100)
@@ -154,36 +228,32 @@ public class PdfService {
             }
 
 
-
-
             // del lado derecho
 
-            if (certificado.getConcepto().equals("Examen de retiro satisfactorio")){
+            if (certificado.getConcepto().equals("Examen de retiro satisfactorio")) {
                 document.add(new Paragraph("x")
                         .setTextAlignment(TextAlignment.LEFT)
                         .setFixedPosition(325, 245, 100)
                 );
             }
-            if (certificado.getConcepto().equals("Examen de retiro no satisfactorio")){
+            if (certificado.getConcepto().equals("Examen de retiro no satisfactorio")) {
                 document.add(new Paragraph("x")
                         .setTextAlignment(TextAlignment.LEFT)
                         .setFixedPosition(325, 234, 100)
                 );
             }
-            if (certificado.getConcepto().equals("Apto con restriccion que no interfieren en la labor 1")){
+            if (certificado.getConcepto().equals("Apto con restriccion que no interfieren en la labor 1")) {
                 document.add(new Paragraph("x")
                         .setTextAlignment(TextAlignment.LEFT)
                         .setFixedPosition(325, 223, 100)
                 );
             }
-            if (certificado.getConcepto().equals("Aplazado")){
+            if (certificado.getConcepto().equals("Aplazado")) {
                 document.add(new Paragraph("x")
                         .setTextAlignment(TextAlignment.LEFT)
                         .setFixedPosition(325, 211, 100)
                 );
             }
-
-
 
 
             document.close();
@@ -194,6 +264,7 @@ public class PdfService {
             return null;
         }
     }
+
     public byte[] generarPdfConDatosCarnet(Certificado certificado) {
         try {
             Resource resource = resourceLoader.getResource("classpath:3-laboratorio.pdf");
@@ -204,7 +275,6 @@ public class PdfService {
             PdfWriter writer = new PdfWriter(outputStream);
             PdfDocument pdfDocument = new PdfDocument(reader, writer);
             Document document = new Document(pdfDocument);
-
 
 
             document.add(new Paragraph(certificado.getCertificadoNumero())
@@ -221,7 +291,6 @@ public class PdfService {
             );
 
 
-
             // Formatear las fechas
             LocalDate desde = LocalDate.parse(certificado.getFecha().toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             String fecha = desde.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
@@ -230,7 +299,6 @@ public class PdfService {
                     .setTextAlignment(TextAlignment.LEFT)
                     .setFixedPosition(88, 350, 100)
             );
-
 
 
             document.close();
